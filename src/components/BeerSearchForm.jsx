@@ -11,7 +11,7 @@ export default class BeerSearchForm extends Component {
     handleSearch(){
         const data = {};
 
-        for( ref in this.refs){
+        for( let ref in this.refs){
             if(this.refs[ref] instanceof BSFormInput){
                 data[ref] = this.refs[ref].getValue();
             }
@@ -23,10 +23,9 @@ export default class BeerSearchForm extends Component {
             alert(resp.failureMessage);
         }
     }
-
-
-
+    
     render(){
-        return (<BSButton label = "Search"/>)
+        var self = this;
+        return (<BSButton label = "Search" onClick={this.handleSearch.bind(self)()}/>)
     }
 }
