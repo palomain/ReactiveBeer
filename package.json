@@ -10,19 +10,23 @@
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
-    "express": "~4.15.2",
+    "express": "^4.15.2",
     "jade": "~1.11.0",
+    "jquery": "^3.2.1",
     "morgan": "~1.8.1",
     "node-uuid": "^1.4.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
     "serve-favicon": "~2.4.2",
-    "webpack": "^2.2.0"
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015-native-modules": "^6.9.4",
+    "babel-preset-react": "^6.24.1",
     "webpack": "^2.2.0"
   }
 }

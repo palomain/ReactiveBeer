@@ -1,10 +1,12 @@
-import {Component} from "react";
-import BSFormInput from '../widgets/BSFormInput';
-import BSButton from '../widgets/BSButton';
+import React, {Component} from "react";
+import BSFormInput from '../widgets/BSFormInput.jsx';
+import BSButton from '../widgets/BSButton.jsx';
 
 
 export default class BeerSearchForm extends Component {
     constructor(props){
+
+
         super(props);
     }
 
@@ -17,15 +19,16 @@ export default class BeerSearchForm extends Component {
             }
         }
 
-        let resp = this.props.handler(data);
+        this.props.handler(data);
 
-        if(resp.failureMessage){
-            alert(resp.failureMessage);
-        }
     }
     
     render(){
         var self = this;
-        return (<BSButton label = "Search" onClick={this.handleSearch.bind(self)()}/>)
+        return (<div>
+                    <BSFormInput ref="beerName" placeholder="Type the name of a beer you want to search" id="beerName" label="Beer name"/>
+                    <BSButton label = "Search" clickhandler={this.handleSearch.bind(self)}/>
+                </div>
+            )
     }
 }

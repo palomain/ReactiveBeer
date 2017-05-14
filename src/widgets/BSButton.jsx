@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
 
 export const ButtonTypes = {
     Primary : "btn-primary",
@@ -40,16 +40,16 @@ export default class BSButton extends Component{
 
     render(){
         const buttonClasses = "btn " + this.props.type + " " + this.props.size;
-        return (<button type="button" ref ="bsbut" onClick={this.props.handler} htmlClass={buttonClasses}>{this.props.label}</button>)
+        return (<button type="button" ref ="bsbut" onClick={this.props.clickhandler} htmlClass={buttonClasses}>{this.props.label}</button>)
     }
 
 }
 
 BSButton.propTypes = {
-    label : React.propTypes.string,
-    type  : React.propTypes.string,
-    size  : React.propTypes.string,
-    handler : React.propTypes.func.required
+    label : React.PropTypes.string,
+    type  : React.PropTypes.string,
+    size  : React.PropTypes.string,
+    handler : React.PropTypes.func.required
 };
 
 

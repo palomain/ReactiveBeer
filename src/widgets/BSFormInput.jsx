@@ -1,5 +1,6 @@
-import {Component} from 'react';
-import {UUID} from "node-uuid";
+import React, {Component} from 'react';
+const uuidV4 = require('uuid/v4');
+const $ = require('jquery');
 
 export default  class  BSFormInput extends Component{
 
@@ -8,7 +9,7 @@ export default  class  BSFormInput extends Component{
     }
 
     componentWillMount() {
-        this.id = this.props.id || UUID.v4();
+        this.id = this.props.id || uuidV4();
     }
 
     getDefaultProps(){
@@ -18,11 +19,12 @@ export default  class  BSFormInput extends Component{
     }
 
     getValue(){
-        return $(this.id).val();
+        return $("#"+this.id).val();
     }
 
     render(){
-        return (<div htmlClass="form-group">
+        const style = {display:"inline-block"};
+        return (<div htmlClass="form-group" style={style}>
                     <label htmlFor={this.id}>{this.props.label || ''}</label>
                     <input type="text" htmlFor="form-control" id={this.id} placeholder={this.props.placeholder || ''} />
                 </div>)
@@ -30,8 +32,8 @@ export default  class  BSFormInput extends Component{
 }
 
 BSFormInput.propTypes = {
-    label : React.propTypes.string,
-    placeholder : React.propTypes.string,
-    id : React.propTypes.string
+    label : React.PropTypes.string,
+    placeholder : React.PropTypes.string,
+    id : React.PropTypes.string
 };
 
