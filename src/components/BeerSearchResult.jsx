@@ -2,14 +2,6 @@ import React,  {Component} from 'react';
 
 export default  class BeerSearchResult extends Component{
 
-    getDefaultProps(){
-        return { defaultMessage : "Click above and type the name of a beer you like!"}
-    }
-
-    getInitialState(){
-        return {};
-    }
-
     setResult(results){
         this.setState({results : results});
     }
@@ -17,7 +9,7 @@ export default  class BeerSearchResult extends Component{
     render() {
 
         if(!this.state || !this.state.results){
-            return (<span>{this.props.defaultMessage}</span>)
+            return (<span>{this.props.message}</span>)
         }
 
         return (<ul>{ this.state.results.map( function(result) {
@@ -25,4 +17,8 @@ export default  class BeerSearchResult extends Component{
         }  ) }  </ul> );
     }
 
+}
+
+BeerSearchResult.defaultProps = {
+    message : "Click above and type the name of a beer you like!"
 }

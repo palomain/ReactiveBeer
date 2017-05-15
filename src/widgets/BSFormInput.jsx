@@ -23,10 +23,10 @@ export default  class  BSFormInput extends Component{
     }
 
     render(){
-        const style = {display:"inline-block"};
-        return (<div htmlClass="form-group" style={style}>
+
+        return (<div className="form-group row" >
                     <label htmlFor={this.id}>{this.props.label || ''}</label>
-                    <input type="text" htmlFor="form-control" id={this.id} placeholder={this.props.placeholder || ''} />
+                    <input type="text" className="form-control" id={this.id} placeholder={this.props.placeholder || ''} />
                 </div>)
     }
 }

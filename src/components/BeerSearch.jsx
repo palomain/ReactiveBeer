@@ -1,44 +1,42 @@
 import React, {Component} from 'react';
+import urlRequest, {METHODS, TECHNIQUES, RESPONSE_TYPES} from '../utilities/request_utils.jsx';
 
 import BeerSearchForm from './BeerSearchForm.jsx';
 import BeerSearchResult from './BeerSearchResult.jsx';
 
 import {beerApiKey} from '../config/keys.jsx';
-import fetchJsonp from 'fetch-jsonp';
 
 const $ = require('jquery');
 
-console.info(fetchJsonp);
 export  default  class BeerSearch extends Component {
 
     searchHandler(searchData) {
        const beerName = searchData.beerName;
        const self = this;
 
-        $.ajax({
-            type : "Get",
-            url :`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=beer&q=${beerName}`,
-            dataType :"jsonp",
-            jsonp: false,
-            jsonpCallback: "myJsonMethod",
-            success : function(data){
-                alert(data);},
-            error : function(httpReq,status,exception){
-                alert(status+" "+exception);
-            }
-        });
-
-        /*fetchJsonp(`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=beer&q=${beerName}`).then(
-                function (response) {
-                    console.info(response);
-                    self.refs["result"].setResult(response.data);
-
-
+        urlRequest(`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=beer&q=${beerName}`, function(err, resp){
+                if(err){
+                    alert(err);
+                   console.error(err);
+                    return;
                 }
 
-        );*/
+                let data = resp.data.sort(function(a, b){return a.name.localeCompare(b.name)});
 
+                data = data.filter((val, index) => index == 0 || data[index].name != data[index-1].name);
 
+                self.refs["result"].setResult(data);
+            },
+            {
+                method : METHODS.GET,
+                technique : TECHNIQUES.CORS,
+                responseType : RESPONSE_TYPES.JSON,
+                withProxy : true,
+                headers : {
+                    origin: "http://api.brewerydb.com"
+                }
+            }
+        );
 
     }
 
