@@ -23,7 +23,7 @@ export  default  class BeerSearch extends Component {
 
                 let data = resp.data.sort(function(a, b){return a.name.localeCompare(b.name)});
 
-                data = data.filter((val, index) => index == 0 || data[index].name != data[index-1].name);
+                data = data.filter((val, index) => index == 0 || data[index].name != data[index-1].name );
 
                 self.refs["result"].setResult(data);
             },
