@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-
+import { Link } from 'react-router-dom';
 
 export default class NavBar extends Component {
 
     render(){
         return (<div>
             <ul className="nav nav-tabs" contenteditable="false">
-                <li className="active"><a href="./">Home</a></li>
-                <li><a href="./search">Search</a></li>
-                <li className="disabled"><a href="#">Profile</a></li>
+                <li className="active"><Link to='/'>Home</Link></li>
+                <li><Link to="/search">Search</Link></li>
+                <li className="disabled"><Link to="./profile">Profile</Link></li>
                 <li className="dropdown pull-right">
                     <a href="#" data-toggle="dropdown" className="dropdown-toggle" aria-expanded="false">Login <b className="caret"></b></a>
                     <ul className="dropdown-menu">

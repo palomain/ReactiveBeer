@@ -24,7 +24,7 @@ export default  class  BSFormInput extends Component{
 
     render(){
 
-        return (<div className="form-group row" >
+        return (<div className="form-group" >
                     <label htmlFor={this.id}>{this.props.label || ''}</label>
                     <input type="text" className="form-control" id={this.id} placeholder={this.props.placeholder || ''} />
                 </div>)

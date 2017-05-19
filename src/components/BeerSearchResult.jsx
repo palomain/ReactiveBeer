@@ -14,13 +14,17 @@ export default  class BeerSearchResult extends Component{
         this.setState({results : resultsPartitions});
     }
 
-    renderBeerInfo(beerInfo){
+    renderInfo(info){
+
+        const imageInfo = info.labels || info.images || {};
+        const image = imageInfo.medium || imageInfo.large || "" ;
+
         return (<div className="col-md-4">
                     <div className="thumbnail">
-                        <img alt="Bootstrap Thumbnail First" src={beerInfo.labels ? beerInfo.labels.medium : ""}/>
+                        <img alt="Bootstrap Thumbnail First" src={image} style={{textAlign:"center"}}/>
                             <div className="caption" contenteditable="false">
-                                <h3>{beerInfo.name}</h3>
-                                <p>{beerInfo.description}</p>
+                                <h3>{info.name}</h3>
+                                <p>{info.description}</p>
                                 <a href="#close" style={{cssFloat:"right"}} className="remove label label-success"><i className="glyphicon glyphicon-add"></i> Add to favourites</a>
                             </div>
                     </div>
@@ -35,12 +39,11 @@ export default  class BeerSearchResult extends Component{
            return (
 
                <div className="row">
-                   {row.map(function(beerInfo){ return self.renderBeerInfo(beerInfo); })}
+                   {row.map(function(info){ return self.renderInfo(info); })}
                </div>
 
            );
        });
-
     }
 
 
@@ -69,5 +72,5 @@ export default  class BeerSearchResult extends Component{
 
 BeerSearchResult.defaultProps = {
     message : "Click above and type the name of a beer you like!"
-}
+};
 

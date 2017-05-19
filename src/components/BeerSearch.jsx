@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import urlRequest, {METHODS, TECHNIQUES, RESPONSE_TYPES} from '../utilities/request_utils.jsx';
-
 import BeerSearchForm from './BeerSearchForm.jsx';
 import BeerSearchResult from './BeerSearchResult.jsx';
 
@@ -8,16 +7,35 @@ import {beerApiKey} from '../config/keys.jsx';
 
 const $ = require('jquery');
 
+require('bootstrap-notify');
+
 export  default  class BeerSearch extends Component {
 
     searchHandler(searchData) {
-       const beerName = searchData.beerName;
-       const self = this;
+       const searchString = searchData.searchs;
+       const type = searchData.type
+;       const self = this;
 
-        urlRequest(`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=beer&q=${beerName}`, function(err, resp){
+        urlRequest(`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=${type}&q=${searchString}`, function(err, resp){
                 if(err){
                     alert(err);
                    console.error(err);
+                    return;
+                }
+
+                if(!resp.data || !resp.data.length){
+                    $.notify({
+                        icon : 'glyphicon glyphicon-info-sign',
+                        message : `No ${type} was found that matched the search criteria`
+                    }, {
+                        element : 'body',
+                        delay : 5000,
+                        placement : {
+                            from : "top",
+                            align : "center"
+                        }
+                    })
+
                     return;
                 }
 
@@ -37,7 +55,6 @@ export  default  class BeerSearch extends Component {
                 }
             }
         );
-
     }
 
     render(){

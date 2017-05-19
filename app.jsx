@@ -5,24 +5,33 @@ import NavBar from './src/components/NavBar.jsx';
 
 import Home from './src/components/Home.jsx';
 import {
-    HashRouter,
+    BrowserRouter,
     Route,
-    Link
+    Switch
 } from 'react-router-dom';
 
+const Main = () => (
+    <main>
+        <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route exact path='/ReactiveBeer/' component={Home}/>
+            <Route path='/search' component={BeerSearch}/>
+        </Switch>
+    </main>
+)
+
+const App = () => (
+  <div>
+      <NavBar/>
+      <Main/>
+  </div>
+);
 
 window.onload = function() {
-    var formDiv = document.getElementById("content");
-    var navBar = document.getElementById("navBar");
-    console.info(formDiv)
+    var contentDiv = document.getElementById("content");
 
-    ReactDOM.render(<NavBar/>, navBar);
-
-    ReactDOM.render( (<HashRouter>
-
-                             <Route exact path="/" component={Home} />
-                             <Route exact path="/search" component={BeerSearch} />
-
-                      </HashRouter>
-    ), formDiv);
+    ReactDOM.render( (<BrowserRouter>
+                            <App/>
+                      </BrowserRouter>
+    ), contentDiv);
 }
