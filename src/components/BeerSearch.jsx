@@ -26,7 +26,7 @@ export  default  class BeerSearch extends Component {
                 if(!resp.data || !resp.data.length){
                     $.notify({
                         icon : 'glyphicon glyphicon-info-sign',
-                        message : `No ${type} was found that matched the search criteria`
+                        message : `No ${type} was found that matches the search criteria`
                     }, {
                         element : 'body',
                         delay : 5000,

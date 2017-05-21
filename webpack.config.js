@@ -1,4 +1,10 @@
 const webpack = require('webpack');
+const combineLoaders = require('webpack-combine-loaders');
+const cssnext = require('postcss-cssnext');
+const dotenv = require('dotenv');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const nodeEnv = process.env.NODE_ENV || 'production';
 
 module.exports = {
@@ -20,7 +26,7 @@ module.exports = {
                 }
             },  {
                 test : /\.css$/,
-                loader : 'style-loader!css-loader'
+                loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass-loader'
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,

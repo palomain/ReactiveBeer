@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import BSFormInput from '../widgets/BSFormInput.jsx';
-import BSButton from '../widgets/BSButton.jsx';
+//import BSButton from '../widgets/BSButton.jsx';
+import {Button, IconButton} from 'react-toolbox/lib/button';
+
 import 'icheck/skins/all.css'; // or single skin css
 import {RadioGroup, Radio} from 'react-icheck';
 
@@ -24,6 +26,10 @@ export default class BeerSearchForm extends Component {
 
         this.props.handler(data);
 
+    }
+
+     mouseUpHandler(){
+        console.info("button pressed");
     }
     
     render(){
@@ -64,11 +70,16 @@ export default class BeerSearchForm extends Component {
                             </div>
 
                             <BSFormInput ref="searchs" placeholder="Type here" id="searchs" />
-
+                            <Button label="Search" onMouseUp={self.mouseUpHandler} flat />
                     </div>
-                    <BSButton label = "Search" clickhandler={this.handleSearch.bind(self)}/>
+
+
+
+
                 </form>
             </div>
             )
     }
 }
+
+//<BSButton label = "Search" clickhandler={this.handleSearch.bind(self)}/>
