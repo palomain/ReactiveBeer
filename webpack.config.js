@@ -1,10 +1,4 @@
 const webpack = require('webpack');
-const combineLoaders = require('webpack-combine-loaders');
-const cssnext = require('postcss-cssnext');
-const dotenv = require('dotenv');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
 const nodeEnv = process.env.NODE_ENV || 'production';
 
 module.exports = {
@@ -24,9 +18,22 @@ module.exports = {
                 query: {
                     presets: ['es2015-native-modules', 'react']
                 }
-            },  {
-                test : /\.css$/,
-                loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass-loader'
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    "style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                            importLoaders: 1,
+                            localIdentName: "[name]--[local]--[hash:base64:8]"
+                        }
+                    },
+                    "postcss-loader" // has separate config, see postcss.config.js nearby
+                ]
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
@@ -67,7 +74,16 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
+        }), new webpack.DefinePlugin({
+            postcss: () => {
+                return [
+                    /* eslint-disable global-require */
+                    require('postcss-cssnext'),
+                    /* eslint-enable global-require */
+                ];
+            }
         })
+
     ]
 };
 

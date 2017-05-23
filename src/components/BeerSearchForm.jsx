@@ -3,8 +3,8 @@ import BSFormInput from '../widgets/BSFormInput.jsx';
 //import BSButton from '../widgets/BSButton.jsx';
 import {Button, IconButton} from 'react-toolbox/lib/button';
 
-import 'icheck/skins/all.css'; // or single skin css
-import {RadioGroup, Radio} from 'react-icheck';
+
+import { RadioGroup, RadioButton } from 'react-toolbox/lib/radio';
 
 
 export default class BeerSearchForm extends Component {
@@ -12,71 +12,71 @@ export default class BeerSearchForm extends Component {
 
 
         super(props);
+        this.state = {type:"beer"};
     }
+
 
     handleSearch(){
         const data = {};
 
         for( let ref in this.refs){
             const refEl = this.refs[ref];
-            if(refEl instanceof BSFormInput || refEl instanceof RadioGroup){
+            if(refEl instanceof BSFormInput){
                 data[ref] = refEl.getValue();
             }
         }
+
+        data.type = this.state.type;
 
         this.props.handler(data);
 
     }
 
-     mouseUpHandler(){
-        console.info("button pressed");
+    typeSelectedHandler(value){
+        this.setState({type:value});
     }
     
     render(){
         const self = this;
         return (
             <div className="col-md-12 column ui-sortable" style={{padding:"10px"}}>
-                <form role="form">
+
                     <div className="form-group">
                             <div style={{display:"block"}}>
                                 <span style={{cssFloat:"left"}}>Search for:</span>
-                                <RadioGroup name="radio" value="beer" ref="type" label="Search for">
-                                    <Radio
+                                <RadioGroup name="radio" value={self.state.type} onChange={self.typeSelectedHandler.bind(self)}ref="type" className="radio-buttons">
+                                    <RadioButton
                                         value="beer"
-                                        radioClass="iradio_square-blue"
-                                        increaseArea="20%"
+
                                         label="Beers"
 
                                     />
-                                    <Radio
+                                    <RadioButton
                                         value="brewery"
-                                        radioClass="iradio_square-blue"
-                                        increaseArea="20%"
+
                                         label="Breweries"
                                     />
-                                    <Radio
+                                    <RadioButton
                                         value="guild"
-                                        radioClass="iradio_square-blue"
-                                        increaseArea="20%"
+
                                         label="Guilds"
                                     />
-                                    <Radio
+                                    <RadioButton
                                         value="event"
-                                        radioClass="iradio_square-blue"
-                                        increaseArea="20%"
+
                                         label="Events"
                                     />
                                 </RadioGroup>
                             </div>
 
                             <BSFormInput ref="searchs" placeholder="Type here" id="searchs" />
-                            <Button label="Search" onMouseUp={self.mouseUpHandler} flat />
+                            <Button label="Search" onMouseUp={self.handleSearch.bind(self)} flat />
                     </div>
 
 
 
 
-                </form>
+
             </div>
             )
     }

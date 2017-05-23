@@ -7,14 +7,19 @@ import {beerApiKey} from '../config/keys.jsx';
 
 const $ = require('jquery');
 
-require('bootstrap-notify');
+
 
 export  default  class BeerSearch extends Component {
 
     searchHandler(searchData) {
        const searchString = searchData.searchs;
-       const type = searchData.type
-;       const self = this;
+
+        if(!searchString || !searchString.trim()){
+            return;
+        }
+
+       const type = searchData.type;
+        const self = this;
 
         urlRequest(`http://api.brewerydb.com/v2/search?key=${beerApiKey}&type=${type}&q=${searchString}`, function(err, resp){
                 if(err){
@@ -24,7 +29,7 @@ export  default  class BeerSearch extends Component {
                 }
 
                 if(!resp.data || !resp.data.length){
-                    $.notify({
+                    /*$.notify({
                         icon : 'glyphicon glyphicon-info-sign',
                         message : `No ${type} was found that matches the search criteria`
                     }, {
@@ -34,7 +39,9 @@ export  default  class BeerSearch extends Component {
                             from : "top",
                             align : "center"
                         }
-                    })
+                    })*/
+
+                    self.refs.results.setResult([]);
 
                     return;
                 }
